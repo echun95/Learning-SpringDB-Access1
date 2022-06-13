@@ -16,8 +16,8 @@ import java.sql.SQLException;
 @Slf4j
 public class MemberServiceV2 {
 
-    private final MemberRepositoryV2 memberRepository;
     private final DataSource dataSource;
+    private final MemberRepositoryV2 memberRepository;
 
 
     public void accountTransfer(String fromId, String toId, int money) throws SQLException {
@@ -29,6 +29,7 @@ public class MemberServiceV2 {
             con.commit();
         }catch (Exception e){
             con.rollback();
+            throw e;
         }finally {
             release(con);
         }
